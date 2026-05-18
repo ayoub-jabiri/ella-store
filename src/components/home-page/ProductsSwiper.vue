@@ -2,20 +2,18 @@
   <div class="products-swiper py-10">
     <v-container fluid>
       <div class="mb-10 d-flex justify-space-between align-center">
-        <h2
-          :class="[`text-${titleColor}`]"
-          style="font-size: 26px; font-weight: bold"
-        >
+        <h2 :class="[`text-${titleColor}`]" style="font-size: 26px; font-weight: bold">
           {{ sectionTitle }}
         </h2>
         <router-link
+          v-if="categories[index]"
           class="text-black"
           style="font-size: 14px"
           :to="{
             name: 'products-category',
             params: {
-              title: categories[index].title,
               category: categories[index].route,
+              title: categories[index].title,
             },
           }"
         >
@@ -26,8 +24,7 @@
         <v-col cols="12" class="pt-14">
           <v-row>
             <v-col cols="3" v-for="num in 4" :key="num">
-              <v-skeleton-loader type="image, article, button">
-              </v-skeleton-loader>
+              <v-skeleton-loader type="image, article, button"> </v-skeleton-loader>
             </v-col>
           </v-row>
         </v-col>
@@ -50,16 +47,9 @@
         <swiper-slide v-for="product in products" :key="product.id">
           <v-card elevation="0" class="pb-5">
             <v-hover v-slot="{ isHovering, props }">
-              <div
-                class="img-box position-relative"
-                style="height: 200px; overflow: hidden"
-              >
+              <div class="img-box position-relative" style="height: 200px; overflow: hidden">
                 <img
-                  :src="
-                    showenImg[product.title]
-                      ? showenImg[product.title]
-                      : product.thumbnail
-                  "
+                  :src="showenImg[product.title] ? showenImg[product.title] : product.thumbnail"
                   class="w-100"
                   alt=""
                   :style="`height: 100%; cursor: pointer; transition: 0.3s; scale: ${
@@ -83,8 +73,7 @@
               {{
                 `(${product.title}) ${product.description}`.length <= 57
                   ? `(${product.title}) ${product.description}`
-                  : `(${product.title}) ${product.description}`.slice(0, 58) +
-                    "..."
+                  : `(${product.title}) ${product.description}`.slice(0, 58) + '...'
               }}
             </v-card-text>
             <v-rating
@@ -100,10 +89,7 @@
               <del>${{ product.price }}</del> From
               <span class="text-red" style="font-weight: bold">
                 ${{
-                  (
-                    product.price -
-                    product.price * (product.discountPercentage / 100)
-                  ).toFixed(2)
+                  (product.price - product.price * (product.discountPercentage / 100)).toFixed(2)
                 }}
               </span>
             </v-card-text>
@@ -134,11 +120,7 @@
               <v-btn
                 class="px-12 py-2"
                 variant="outlined"
-                style="
-                  text-transform: none;
-                  border-radius: 30px;
-                  height: fit-content;
-                "
+                style="text-transform: none; border-radius: 30px; height: fit-content"
                 @click="
                   $router.push({
                     name: 'products-details',
@@ -160,10 +142,10 @@
 </template>
 
 <script>
-import { Swiper, SwiperSlide } from "vue-awesome-swiper";
-import { Pagination, Navigation, Autoplay } from "swiper";
-import { ProductsModule } from "@/stores/products";
-import { mapState } from "pinia";
+import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+import { Pagination, Navigation, Autoplay } from 'swiper'
+import { ProductsModule } from '@/stores/products'
+import { mapState } from 'pinia'
 
 export default {
   data: () => ({
@@ -176,7 +158,7 @@ export default {
   setup() {
     return {
       modules: [Pagination, Navigation, Autoplay],
-    };
+    }
   },
   props: {
     sectionTitle: {
@@ -192,16 +174,16 @@ export default {
       type: Number,
     },
   },
-  inject: ["emitter"],
+  inject: ['emitter'],
   computed: {
-    ...mapState(ProductsModule, ["categories"]),
+    ...mapState(ProductsModule, ['categories']),
   },
   methods: {
     openPopup(product) {
-      this.emitter.emit("triggerPopup", product);
+      this.emitter.emit('triggerPopup', product)
     },
   },
-};
+}
 </script>
 
 <style lang="scss">
