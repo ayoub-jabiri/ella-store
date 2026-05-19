@@ -43,9 +43,11 @@ export const ProductsModule = defineStore('productsModule', {
   actions: {
     async getProducts() {
       try {
-        let res = await fetch('https://dummyjson.com/products')
+        let res = await fetch('https://dummyjson.com/products?limit=30')
         let data = await res.json()
         this.FlashDeals = data.products.slice(0, 8)
+        console.log(this.FlashDeals)
+
         this.newProducts = data.products.slice(8, 16)
         this.mobilePhones = data.products.slice(16, 24)
         this.televisions = data.products.slice(24, 29)
