@@ -142,8 +142,8 @@
 </template>
 
 <script>
-import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
-import { Pagination, Navigation, Autoplay } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Pagination, Navigation, Autoplay } from 'swiper/modules'
 import { ProductsModule } from '@/stores/products'
 import { mapState } from 'pinia'
 

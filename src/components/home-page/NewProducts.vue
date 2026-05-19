@@ -9,8 +9,7 @@
         <v-col cols="7" class="pt-14" v-if="!products.length">
           <v-row>
             <v-col cols="4" v-for="num in 3" :key="num">
-              <v-skeleton-loader type="image, article, button">
-              </v-skeleton-loader>
+              <v-skeleton-loader type="image, article, button"> </v-skeleton-loader>
             </v-col>
           </v-row>
         </v-col>
@@ -25,16 +24,9 @@
             <swiper-slide v-for="product in products" :key="product.id">
               <v-card elevation="0" class="pb-5">
                 <v-hover v-slot="{ isHovering, props }">
-                  <div
-                    class="img-box position-relative"
-                    style="height: 160px; overflow: hidden"
-                  >
+                  <div class="img-box position-relative" style="height: 160px; overflow: hidden">
                     <img
-                      :src="
-                        showenImg[product.title]
-                          ? showenImg[product.title]
-                          : product.thumbnail
-                      "
+                      :src="showenImg[product.title] ? showenImg[product.title] : product.thumbnail"
                       class="w-100"
                       alt=""
                       :style="`height: 100%; cursor: pointer; transition: 0.3s; scale: ${
@@ -58,10 +50,7 @@
                   {{
                     `(${product.title}) ${product.description}`.length <= 40
                       ? `(${product.title}) ${product.description}`
-                      : `(${product.title}) ${product.description}`.slice(
-                          0,
-                          41
-                        ) + "..."
+                      : `(${product.title}) ${product.description}`.slice(0, 41) + '...'
                   }}
                 </v-card-text>
                 <v-rating
@@ -77,10 +66,9 @@
                   <del>${{ product.price }}</del> From
                   <span class="text-red" style="font-weight: bold">
                     ${{
-                      (
-                        product.price -
-                        product.price * (product.discountPercentage / 100)
-                      ).toFixed(2)
+                      (product.price - product.price * (product.discountPercentage / 100)).toFixed(
+                        2,
+                      )
                     }}
                   </span>
                 </v-card-text>
@@ -111,11 +99,7 @@
                   <v-btn
                     class="px-12 py-2"
                     variant="outlined"
-                    style="
-                      text-transform: none;
-                      border-radius: 30px;
-                      height: fit-content;
-                    "
+                    style="text-transform: none; border-radius: 30px; height: fit-content"
                     @click="
                       $router.push({
                         name: 'products-details',
@@ -140,8 +124,8 @@
 </template>
 
 <script>
-import { Swiper, SwiperSlide } from "vue-awesome-swiper";
-import { Pagination } from "swiper";
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Pagination } from 'swiper/modules'
 
 export default {
   data: () => ({
@@ -154,7 +138,7 @@ export default {
   setup() {
     return {
       modules: [Pagination],
-    };
+    }
   },
   props: {
     products: {
@@ -164,13 +148,13 @@ export default {
       type: Number,
     },
   },
-  inject: ["emitter"],
+  inject: ['emitter'],
   methods: {
     openPopup(product) {
-      this.emitter.emit("triggerPopup", product);
+      this.emitter.emit('triggerPopup', product)
     },
   },
-};
+}
 </script>
 
 <style lang="scss">
