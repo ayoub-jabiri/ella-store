@@ -50,8 +50,6 @@ export const ProductsModule = defineStore('productsModule', {
         this.mobilePhones = data.products.slice(16, 24)
         this.televisions = data.products.slice(24, 29)
         this.groceries = data.products.filter((el) => el.category === 'groceries').slice(0, 8)
-
-        console.log('Got the products')
       } catch (err) {
         console.log(err)
       }
