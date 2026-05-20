@@ -45,13 +45,13 @@ export const ProductsModule = defineStore('productsModule', {
       try {
         let res = await fetch('https://dummyjson.com/products?limit=30')
         let data = await res.json()
-        this.FlashDeals = data.products.slice(0, 8)
-        console.log(this.FlashDeals)
-
+        this.flashDeals = data.products.slice(0, 8)
         this.newProducts = data.products.slice(8, 16)
         this.mobilePhones = data.products.slice(16, 24)
         this.televisions = data.products.slice(24, 29)
         this.groceries = data.products.filter((el) => el.category === 'groceries').slice(0, 8)
+
+        console.log('Got the products')
       } catch (err) {
         console.log(err)
       }

@@ -42,7 +42,7 @@
           pauseOnMouseEnter: true,
           disableOnInteraction: false,
         }"
-        :loop="true"
+        :loop="products.length >= 8"
       >
         <swiper-slide v-for="product in products" :key="product.id">
           <v-card elevation="0" class="pb-5">

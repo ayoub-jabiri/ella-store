@@ -3,11 +3,20 @@
     <UpperBanner />
     <TheFeatures />
     <TopOffers />
-    <ProductsComponent title="Flash Deals" title-color="red" :products="flashDeals" :index="'0'" />
+    <ProductsComponent
+      sectionTitle="Flash Deals"
+      title-color="red"
+      :products="flashDeals"
+      :index="0"
+    />
     <TopCategories />
     <NewProducts :products="newProducts" :index="1" />
     <QualityFeatures />
-    <ProductsComponent title="Top Mobile Phones" title-color="inherit" :products="mobilePhones" />
+    <ProductsComponent
+      sectionTitle="Top Mobile Phones"
+      title-color="inherit"
+      :products="mobilePhones"
+    />
     <v-container fluid>
       <v-row>
         <v-col class="pr-5">
@@ -19,7 +28,7 @@
       </v-row>
     </v-container>
     <ProductsComponent
-      title="Top Televisions"
+      sectionTitle="Top Televisions"
       titleColor="inherit"
       :products="televisions"
       :index="3"
@@ -72,8 +81,8 @@ export default {
   methods: {
     ...mapActions(ProductsModule, ['getProducts']),
   },
-  mounted() {
-    this.getProducts()
+  async mounted() {
+    await this.getProducts()
   },
 }
 </script>
