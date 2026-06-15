@@ -2,7 +2,7 @@
   <div class="fixed-nav">
     <v-app-bar color="#161880">
       <v-container fluid>
-        <v-row>
+        <v-row class="align-center">
           <v-col cols="2">
             <img
               class="w-50"
@@ -26,18 +26,9 @@
               </li>
             </ul>
           </v-col>
-          <v-col
-            cols="3"
-            class="d-flex justify-end align-center"
-            style="gap: 20px"
-          >
+          <v-col cols="3" class="d-flex justify-end align-center" style="gap: 20px">
             <div class="nav-popups">
-              <svg
-                data-icon="search"
-                viewBox="0 0 512 512"
-                width="25"
-                class="nav-icon"
-              >
+              <svg data-icon="search" viewBox="0 0 512 512" width="25" class="nav-icon">
                 <path
                   d="M495,466.2L377.2,348.4c29.2-35.6,46.8-81.2,46.8-130.9C424,103.5,331.5,11,217.5,11C103.4,11,11,103.5,11,217.5   S103.4,424,217.5,424c49.7,0,95.2-17.5,130.8-46.7L466.1,495c8,8,20.9,8,28.9,0C503,487.1,503,474.1,495,466.2z M217.5,382.9   C126.2,382.9,52,308.7,52,217.5S126.2,52,217.5,52C308.7,52,383,126.3,383,217.5S308.7,382.9,217.5,382.9z"
                 ></path>
@@ -45,9 +36,7 @@
             </div>
             <div
               class="nav-popups cart d-flex flex-column align-center"
-              :style="`pointer-events: ${
-                $route.name == 'cart-page' ? 'none' : 'unset'
-              }`"
+              :style="`pointer-events: ${$route.name == 'cart-page' ? 'none' : 'unset'}`"
               @click="openCart"
             >
               <v-badge
@@ -57,11 +46,7 @@
                 offsetX="-14"
                 v-if="cartItems.length"
               ></v-badge>
-              <svg
-                viewBox="0 0 1024 1024"
-                xmlns="http://www.w3.org/2000/svg"
-                class="nav-icon"
-              >
+              <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="nav-icon">
                 <path
                   class="path1"
                   d="M409.6 1024c-56.464 0-102.4-45.936-102.4-102.4s45.936-102.4 102.4-102.4S512 865.136 512 921.6 466.064 1024 409.6 1024zm0-153.6c-28.232 0-51.2 22.968-51.2 51.2s22.968 51.2 51.2 51.2 51.2-22.968 51.2-51.2-22.968-51.2-51.2-51.2z"
@@ -84,22 +69,22 @@
 </template>
 
 <script>
-import { ProductsModule } from "@/stores/products.js";
-import { CartModule } from "@/stores/cart";
-import { mapState } from "pinia";
+import { ProductsModule } from '@/stores/products.js'
+import { CartModule } from '@/stores/cart'
+import { mapState } from 'pinia'
 
 export default {
-  inject: ["emitter"],
+  inject: ['emitter'],
   computed: {
-    ...mapState(ProductsModule, ["categories"]),
-    ...mapState(CartModule, ["cartItems"]),
+    ...mapState(ProductsModule, ['categories']),
+    ...mapState(CartModule, ['cartItems']),
   },
   methods: {
     openCart() {
-      this.emitter.emit("openCart");
+      this.emitter.emit('openCart')
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
