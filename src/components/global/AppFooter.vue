@@ -10,7 +10,7 @@
                 <router-link
                   :to="{
                     name: 'products-category',
-                    params: { category: category.route, title: category.title },
+                    query: { category: category.route, title: category.title },
                   }"
                   style="color: #555; text-decoration: none"
                 >
@@ -87,9 +87,7 @@
                     ></path>
                   </svg>
                 </span>
-                <span>
-                  Call us at <a href="#" style="color: #555">(415) 555-5555</a>
-                </span>
+                <span> Call us at <a href="#" style="color: #555">(415) 555-5555</a> </span>
               </v-card-text>
               <v-card-text class="d-flex align-start" style="gap: 15px">
                 <span>
@@ -206,12 +204,10 @@
         <v-row class="bg-white pt-10">
           <v-col>
             <p style="color: #555; font-size: 15px">
-              &copy; {{ new Date().getFullYear() }} Ella Demo, All Rights
-              Reserved, Powred By Shopify
+              &copy; {{ new Date().getFullYear() }} Ella Demo, All Rights Reserved, Powred By
+              Shopify
             </p>
-            <p style="color: #555; font-size: 15px">
-              Shopify Themes By Halothemes.net
-            </p>
+            <p style="color: #555; font-size: 15px">Shopify Themes By Halothemes.net</p>
           </v-col>
           <v-col>
             <div class="payment-methods">
@@ -225,8 +221,8 @@
 </template>
 
 <script>
-import { ProductsModule } from "@/stores/products.js";
-import { mapState } from "pinia";
+import { ProductsModule } from '@/stores/products.js'
+import { mapState } from 'pinia'
 
 export default {
   data: () => ({
@@ -241,9 +237,9 @@ export default {
     ],
   }),
   computed: {
-    ...mapState(ProductsModule, ["categories"]),
+    ...mapState(ProductsModule, ['categories']),
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>

@@ -5,30 +5,17 @@
       <v-card class="pt-5" min-height="700px" elevation="0">
         <v-row v-if="loading">
           <v-col cols="3" v-for="num in 4" :key="num">
-            <v-skeleton-loader type="image, article, button">
-            </v-skeleton-loader>
+            <v-skeleton-loader type="image, article, button"> </v-skeleton-loader>
           </v-col>
         </v-row>
         <v-row v-if="!loading">
-          <v-col
-            cols="3"
-            v-for="product in categoryProducts"
-            :key="product.id"
-            class="px-5"
-          >
+          <v-col cols="3" v-for="product in categoryProducts" :key="product.id" class="px-5">
             <v-lazy>
               <v-card elevation="0" class="pb-5">
                 <v-hover v-slot="{ isHovering, props }">
-                  <div
-                    class="img-box position-relative"
-                    style="height: 200px; overflow: hidden"
-                  >
+                  <div class="img-box position-relative" style="height: 200px; overflow: hidden">
                     <img
-                      :src="
-                        showenImg[product.title]
-                          ? showenImg[product.title]
-                          : product.thumbnail
-                      "
+                      :src="showenImg[product.title] ? showenImg[product.title] : product.thumbnail"
                       class="w-100"
                       alt=""
                       :style="`height: 100%; cursor: pointer; transition: 0.3s; scale: ${
@@ -52,10 +39,7 @@
                   {{
                     `(${product.title}) ${product.description}`.length <= 57
                       ? `(${product.title}) ${product.description}`
-                      : `(${product.title}) ${product.description}`.slice(
-                          0,
-                          58
-                        ) + "..."
+                      : `(${product.title}) ${product.description}`.slice(0, 58) + '...'
                   }}
                 </v-card-text>
                 <v-rating
@@ -71,10 +55,9 @@
                   <del>${{ product.price }}</del> From
                   <span class="text-red" style="font-weight: bold">
                     ${{
-                      (
-                        product.price -
-                        product.price * (product.discountPercentage / 100)
-                      ).toFixed(2)
+                      (product.price - product.price * (product.discountPercentage / 100)).toFixed(
+                        2,
+                      )
                     }}
                   </span>
                 </v-card-text>
@@ -105,11 +88,7 @@
                   <v-btn
                     class="px-12 py-2"
                     variant="outlined"
-                    style="
-                      text-transform: none;
-                      border-radius: 30px;
-                      height: fit-content;
-                    "
+                    style="text-transform: none; border-radius: 30px; height: fit-content"
                     @click="
                       $router.push({
                         name: 'products-details',
@@ -130,42 +109,47 @@
 </template>
 
 <script>
-import { ProductsModule } from "@/stores/products";
-import { mapState, mapActions } from "pinia";
+import { ProductsModule } from '@/stores/products'
+import { mapState, mapActions } from 'pinia'
 
 export default {
   data: () => ({
     loading: false,
     showenImg: {},
   }),
-  inject: ["emitter"],
+  inject: ['emitter'],
 
   computed: {
-    ...mapState(ProductsModule, ["categoryProducts"]),
+    ...mapState(ProductsModule, ['categoryProducts']),
   },
   methods: {
-    ...mapActions(ProductsModule, ["getProductsByCategory"]),
+    ...mapActions(ProductsModule, ['getProductsByCategory']),
     openPopup(product) {
-      this.emitter.emit("triggerPopup", product);
+      this.emitter.emit('triggerPopup', product)
     },
   },
   watch: {
     async $route() {
-      document.documentElement.scrollTo(0, 0);
-      this.loading = true;
-      let category = this.$route.params.category;
-      await this.getProductsByCategory(category);
-      this.loading = false;
+      if (this.$route.name == 'products-category') {
+        document.documentElement.scrollTo(0, 0)
+        this.loading = true
+        let category = this.$route.query.category
+        await this.getProductsByCategory(category)
+        this.loading = false
+        console.log('fired')
+      }
     },
   },
   async mounted() {
-    this.loading = true;
-    let category = this.$route.params.category;
-    await this.getProductsByCategory(category);
-    console.log(this.categoryProducts);
-    this.loading = false;
+    if (!this.$route.query.category) {
+      this.$router.go(-1)
+    }
+    this.loading = true
+    let category = this.$route.query.category
+    await this.getProductsByCategory(category)
+    this.loading = false
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>

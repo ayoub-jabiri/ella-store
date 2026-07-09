@@ -11,7 +11,7 @@
           style="font-size: 14px"
           :to="{
             name: 'products-category',
-            params: {
+            query: {
               category: categories[index].route,
               title: categories[index].title,
             },
@@ -124,7 +124,7 @@
                 @click="
                   $router.push({
                     name: 'products-details',
-                    params: { productId: product.id },
+                    query: { productId: product.id },
                   })
                 "
               >

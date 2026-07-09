@@ -21,8 +21,8 @@ export const ProductsModule = defineStore('productsModule', {
         route: 'furniture',
       },
       {
-        title: 'Televisions',
-        route: 'televisions',
+        title: 'Home Decoration',
+        route: 'home-decoration',
       },
       {
         title: "Men's Watches",
@@ -33,8 +33,8 @@ export const ProductsModule = defineStore('productsModule', {
         route: 'womens-bags',
       },
       {
-        title: 'Home Appliances',
-        route: 'home-appliances',
+        title: 'Groceries',
+        route: 'groceries',
       },
     ],
     categoryProducts: [],
@@ -59,6 +59,7 @@ export const ProductsModule = defineStore('productsModule', {
         let url = `https://dummyjson.com/products/category/${category}`
         let res = await fetch(url)
         let data = await res.json()
+
         this.categoryProducts = data.products
       } catch (err) {
         console.log(err)
